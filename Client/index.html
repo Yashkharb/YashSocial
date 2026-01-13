@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yash Social</title>
+</head>
+<body>
+    <h1>Yash Social</h1>
+    <input id="text" placeholder="Write something">
+    <button onclick="post()">Post</button>
+    <div id="feed"></div>
+
+    <script>
+        async function post() {
+            await fetch("http://localhost:5000/post", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ author:"yash", text: text.value })
+            });
+            load();
+        }
+
+        async function load() {
+            const res = await fetch("http://localhost:5000/feed");
+            const data = await res.json();
+            feed.innerHTML = data.map(p => `<p>${p.author}: ${p.text}</p>`).join("");
+        }
+        load();
+    </script>
+</body>
+</html>
