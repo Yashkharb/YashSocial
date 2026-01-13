@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect("mongodb+srv://yashkharb:passionforfootball@yashcluster1.eispnhm.mongodb.net/")
+mongoose.connect("process.env.MONGO_URL")
 .then(() => console.log("Database connected"))
 .catch(err => console.log(err));
 
